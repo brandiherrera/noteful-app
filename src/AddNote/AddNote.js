@@ -124,7 +124,7 @@ export default class AddNote extends Component {
                 name.value = '';
                 content.value = '';
                 folderId.value = '';
-                // console.log(this.props)
+                console.log(this.props)
                 this.context.addNote(data);
                 // this.props.history.pushState('/', this.props);
                 this.props.history.push('/');

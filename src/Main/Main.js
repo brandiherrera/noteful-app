@@ -19,6 +19,7 @@ export default class Main extends React.Component {
         // console.log(props.notes)
         const { folderId } = this.props.match.params
         const { notes =[] } = this.context
+        // console.log({notes})
         const getNotesForFolder = (notes=[], folderId) => (
             (!folderId)
               ? notes
@@ -36,9 +37,16 @@ export default class Main extends React.Component {
                         <li key={note.id}>
                             <Note
                                 id={note.id}
-                                name={note.name}
-                                modified={note.modified}
+                                name={note.note_name}
+                                modified={note.date_published}
                             />
+                            {/* <Route path={`note/${note.id}`} component={Note}
+                                {...note.id}
+                                {...note.name}
+                                {...note.date_published}
+                                >
+                            </Route> */}
+                            {note.name}
                             {/* <Link to={`/note/${note.id}`}>
                                 {note.name}
                             </Link>
