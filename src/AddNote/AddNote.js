@@ -97,8 +97,8 @@ export default class AddNote extends Component {
 
         const { name, folderId, content } = e.target;
         const note = {
-            name: name.value,
-            folderId: folderId.value,
+            note_name: name.value,
+            folder_id: folderId.value,
             // folder: folder.value,
             content: content.value,
             modified: new Date()
@@ -195,7 +195,7 @@ export default class AddNote extends Component {
                         onChange={this.handleChange}
                     >
                         <option value="">Select a folder</option>
-                        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.name}</option>))}
+                        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.folder_name}</option>))}
                         {/* {this.getFolders(folders)} */}
                     </select>
                     <button

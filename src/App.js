@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom'
 import { Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 // import dummystore from './dummy-store';
 // import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import SidebarNav from './SidebarNav/SidebarNav';
 import Main from './Main/Main';
+import Note from './Note/Note';
 import NotePage from './NotePage/NotePage'
 import NotefulContext from './NotefulContext';
 import AddFolder from './AddFolder/AddFolder';
@@ -47,12 +48,71 @@ class App extends Component {
     this.setState(error);
   };
 
+	// setFolders = folders => {
+	// 	this.setState({
+	// 		folders,
+	// 		error: null
+	// 	});
+  // };
+  
+	setNotes = notes => {
+		this.setState({
+			notes,
+			error: null
+    });
+    console.log(notes)
+  };
+  
+	getFolders = () => {
+		fetch(config.API_FOLDERS, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		})
+			.then(res => {
+				if (!res.ok) {
+					throw new Error(res.status);
+				}
+				return res.json();
+			})
+			.then(this.setFolders)
+			// passes res to setFolders function
+			// shortcut which equals .then(res => this.setFolders(res))
+			.catch(error => this.setState({ foldersError: error }));
+	};
+
+  getNotes = () => {
+    // console.log(e)
+
+		fetch(config.API_NOTES + `/${2}`, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		})
+			.then(res => {
+				if (!res.ok) {
+					throw new Error(res.status);
+				}
+				return res.json();
+			})
+			.then(this.setNotes)
+			// passes res to setNotes function
+			// shortcut which equals .then(res => this.setNotes(res))
+			.catch(error => this.setState({ notesError: error }));
+	};
+
+  // this.getFolders();
+  // this.getNotes();
 
   componentDidMount() {
+
     // let foldersAPICall = fetch(config.API_ENDPOINT  `/folders`);
     // let notesAPICall = fetch(config.API_ENDPOINT  `/notes`);
   
     // Promise.all([foldersAPICall, notesAPICall])
+
     Promise.all([
       fetch(`${config.API_ENDPOINT}/notes`),
       fetch(`${config.API_ENDPOINT}/folders`)
@@ -67,13 +127,35 @@ class App extends Component {
       })
         .then(([notes, folders]) => {
           this.setState({notes, folders});
-          // console.log(this.state)
+          console.log(this.state)
         })
         .catch(error => {
           console.error({error})
         });
       }
-  
+
+      componentDidUpdate(prevState) {
+        if (this.state.folders !== prevState.folders) {
+          fetch(config.API_ENDPOINT + '/api/folders')
+            .then(response => response.json())
+            .then(responseJson =>
+              this.setState({
+                folders: responseJson
+              })
+            );
+        }
+    
+        if (this.state.notes !== prevState.notes) {
+          fetch(config.API_ENDPOINT + '/api/notes')
+            .then(response => response.json())
+            .then(responseJson =>
+              this.setState({
+                notes: responseJson
+              })
+            );
+        }
+      }
+      
   renderMain() {
     // const {notes} = this.state;
     return (
@@ -84,29 +166,12 @@ class App extends Component {
                     key={path}
                     path={path}
                     component={Main}
-                    // render={routeProps => {
-                    //     const {folderId} = routeProps.match.params;
-                    //     const notesForFolder = getNotesForFolder(
-                    //         notes,
-                    //         folderId
-                    //     );
-                    //     return (
-                    //         <Main
-                    //             {...routeProps}
-                    //             notes={notesForFolder}
-                    //         />
-                    //     );
-                    // }}
                 />
             ))}
             <Route
                 path="/note/:noteId"
+                // onClick = {this.getNotes}
                 component={NotePage}
-                // render={routeProps => {
-                //     const {noteId} = routeProps.match.params;
-                //     const note = findNote(notes, noteId);
-                //     return <NotePage {...routeProps} note={note} />;
-                // }}
             />
             <Route path="/add-note" component={AddNote} />
         </>
@@ -125,13 +190,6 @@ class App extends Component {
                     key={path}
                     path={path}
                     component= {Sidebar}
-                    // render={routeProps => (
-                    //     <Sidebar
-                    //         folders={folders}
-                    //         notes={notes}
-                    //         {...routeProps}
-                    //     />
-                    // )}
                 />
             ))}
             <Route

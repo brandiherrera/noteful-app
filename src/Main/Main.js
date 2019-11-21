@@ -26,10 +26,9 @@ export default class Main extends React.Component {
               : notes.filter(note => note.folderId === folderId)
           )
         const notesForFolder = getNotesForFolder(notes, folderId)
-        // console.log(notes)
+        console.log(notesForFolder)
         return (
             <div className="mainpage__main">
-              {/* <h2>Main</h2>   */}
                 <ul className="noteList">
                     
                     {/* {this.props.notes.map(note => */}
@@ -52,8 +51,8 @@ export default class Main extends React.Component {
                             </Link>
                             <p>{note.modified}</p> */}
                             
-
-                        </li>)}
+                        </li>
+                        )}
                 </ul>
                 <Link
                     to='/add-note'

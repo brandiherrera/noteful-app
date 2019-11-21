@@ -24,7 +24,7 @@ export default class Sidebar extends React.Component {
     // const findFolder = (folders=[], folderId) =>
     //     folders.find(folder => folder.id === folderId)
     
-    // console.log({folders})
+    console.log({folders})
     // const folderDisplay = findFolder(folders, folderId)
     // console.log(folderDisplay);
     return(
@@ -35,7 +35,7 @@ export default class Sidebar extends React.Component {
                     <div key={folder.id}>
                         <NavLink to={`/folder/${folder.id}`}>
                         {/* {countNotesForFolder(notes, folder.id)} */}
-                            {folder.name}
+                            {folder.folder_name}
                         </NavLink>
                     </div>)}
                 </div>

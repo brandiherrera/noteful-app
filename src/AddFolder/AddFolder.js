@@ -69,7 +69,7 @@ export default class AddFolder extends React.Component {
         if (this.state.errorCount > 0) return;
         const { name } = e.target;
         const folder = {
-            name: name.value
+            folder_name: name.value
         };
 
         fetch(config.API_FOLDERS, {
@@ -97,11 +97,6 @@ export default class AddFolder extends React.Component {
             .catch(error => {
                 this.setState({ appError: error });
             });
-
-        // console.log(folder)
-
-        // const { add_folder } = this.state;
-        // console.log("New Folder", add_folder.value);
 
     };
 
