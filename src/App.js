@@ -134,27 +134,27 @@ class App extends Component {
         });
       }
 
-      componentDidUpdate(prevState) {
-        if (this.state.folders !== prevState.folders) {
-          fetch(config.API_ENDPOINT + '/api/folders')
-            .then(response => response.json())
-            .then(responseJson =>
-              this.setState({
-                folders: responseJson
-              })
-            );
-        }
+      // componentDidUpdate(prevState) {
+      //   if (this.state.folders !== prevState.folders) {
+      //     fetch(config.API_ENDPOINT + '/folders')
+      //       .then(response => response.json())
+      //       .then(responseJson =>
+      //         this.setState({
+      //           folders: responseJson
+      //         })
+      //       );
+      //   }
     
-        if (this.state.notes !== prevState.notes) {
-          fetch(config.API_ENDPOINT + '/api/notes')
-            .then(response => response.json())
-            .then(responseJson =>
-              this.setState({
-                notes: responseJson
-              })
-            );
-        }
-      }
+      //   if (this.state.notes !== prevState.notes) {
+      //     fetch(config.API_ENDPOINT + '/notes')
+      //       .then(response => response.json())
+      //       .then(responseJson =>
+      //         this.setState({
+      //           notes: responseJson
+      //         })
+      //       );
+      //   }
+      // }
       
   renderMain() {
     // const {notes} = this.state;
