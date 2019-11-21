@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import ReactDOM from 'react-dom'
 import { Route } from 'react-router-dom';
 import { Link, NavLink } from 'react-router-dom';
-// import dummystore from './dummy-store';
 // import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import SidebarNav from './SidebarNav/SidebarNav';
@@ -210,7 +209,6 @@ class App extends Component {
 
 
   render() {
-    // console.log(dummystore)
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,

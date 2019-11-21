@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
 import Note from '../Note/Note'
 
-// function deleteNoteRequest()
-
-// export default function Main(props) {
 export default class Main extends React.Component {
     static defaultProps = {
         match: {

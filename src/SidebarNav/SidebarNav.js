@@ -6,7 +6,6 @@ import NotefulContext from '../NotefulContext'
 import PropTypes from 'prop-types';
 import {  findFolder } from '../notesFunctions';
 
-// export default function SidebarNav(props) {
 export default class SidebarNav extends React.Component {
     static defaultProps = {
         history: {
@@ -66,8 +65,6 @@ export default class SidebarNav extends React.Component {
                     onClick={() => this.props.history.goBack()}>
                     Go back
                 </button>
-                {/* {folder.folder_name} */}
-                {/* {folders} */}
                 {folders.map(folder => (
                     <li key={folder.id}>
                         <NavLink to={`/folders/${folder.id}`}>
