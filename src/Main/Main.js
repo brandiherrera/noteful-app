@@ -13,21 +13,23 @@ export default class Main extends React.Component {
     static contextType = NotefulContext
 
     render() {
-        // console.log(props.notes)
+        console.log(this.context.notes)
         const { folderId } = this.props.match.params
-        const { notes =[] } = this.context
-        // console.log({notes})
+        console.log(folderId)
+        const { notes } = this.context
+        console.log(notes)
         const getNotesForFolder = (notes=[], folderId) => (
             (!folderId)
               ? notes
-              : notes.filter(note => note.folderId === folderId)
+              : notes.filter(note => note.folder_id == folderId)
           )
+          
         const notesForFolder = getNotesForFolder(notes, folderId)
         console.log(notesForFolder)
         return (
             <div className="mainpage__main">
                 <ul className="noteList">
-                    
+                    {/* <h1>Main</h1> */}
                     {/* {this.props.notes.map(note => */}
                     {notesForFolder.map(note =>
                         <li key={note.id}>

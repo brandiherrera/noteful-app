@@ -1,7 +1,7 @@
 import React from 'react';
 // import './SidebarNav.css';
-import { Route, NavLink } from 'react-router-dom';
-import AddFolder from '../AddFolder/AddFolder';
+import { NavLink } from 'react-router-dom';
+// import AddFolder from '../AddFolder/AddFolder';
 import NotefulContext from '../NotefulContext'
 import PropTypes from 'prop-types';
 import {  findFolder } from '../notesFunctions';
@@ -45,6 +45,7 @@ export default class SidebarNav extends React.Component {
         console.log(folders)
         console.log(folder)
         console.log(noteId)
+        console.log(this.props)
         // console.log(findFolder(folders, noteId))
         // console.log(findFolder(folders, this.props.match.params))
         // console.log(displayFolder(folderId, noteId))
@@ -53,12 +54,12 @@ export default class SidebarNav extends React.Component {
         return (
             <div className="SidebarNav">
                 <div className="sidebarRoute">
-                    <Route
+                    {/* <Route
                         // className="sidebarRoute"
                         exact
                         path={`/add-folder`}
                         component={AddFolder}
-                    >Add Folder</Route>
+                    >Add Folder</Route> */}
                 </div>
                 <button
                     type="button"

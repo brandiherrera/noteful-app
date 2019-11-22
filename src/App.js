@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom'
 import { Route } from 'react-router-dom';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 // import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import SidebarNav from './SidebarNav/SidebarNav';
 import Main from './Main/Main';
-import Note from './Note/Note';
+// import Note from './Note/Note';
 import NotePage from './NotePage/NotePage'
 import NotefulContext from './NotefulContext';
 import AddFolder from './AddFolder/AddFolder';
@@ -209,6 +210,7 @@ class App extends Component {
 
 
   render() {
+    // console.log(dummystore)
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
