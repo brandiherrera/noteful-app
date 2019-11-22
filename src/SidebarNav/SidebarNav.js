@@ -1,7 +1,7 @@
 import React from 'react';
 // import './SidebarNav.css';
 import { NavLink } from 'react-router-dom';
-// import AddFolder from '../AddFolder/AddFolder';
+import AddFolder from '../AddFolder/AddFolder';
 import NotefulContext from '../NotefulContext'
 import PropTypes from 'prop-types';
 import {  findFolder } from '../notesFunctions';
@@ -45,7 +45,6 @@ export default class SidebarNav extends React.Component {
         console.log(folders)
         console.log(folder)
         console.log(noteId)
-        console.log(this.props)
         // console.log(findFolder(folders, noteId))
         // console.log(findFolder(folders, this.props.match.params))
         // console.log(displayFolder(folderId, noteId))

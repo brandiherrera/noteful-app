@@ -21,7 +21,7 @@ export default class Note extends React.Component {
         event.preventDefault()
         const noteId = this.props.id
         // this.props.history.push(`/`)
-        console.log(noteId)
+        console.log(this.history)
 
         fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
             method: 'DELETE',
@@ -50,16 +50,14 @@ export default class Note extends React.Component {
     render() {
         // const { notes } = this.props
         // const { notes = [] } = this.context
-        console.log(this.props)
+        // console.log(this.props)
         // const findNote = (notes = [], noteId) =>
         //     notes.find(note => note.id === noteId)
-        // console.log(this.props)
+        // console.log(this.context)
         // class Note extends Component {
         //     render() {
         return (
             <div className="note">
-                {/* {notes.map(note => */}
-
                     <div key={this.props.id}>
                         <h2>
                             <Link to={`/note/${this.props.id}`}>
