@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom'
 import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-// import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import SidebarNav from './SidebarNav/SidebarNav';
 import Main from './Main/Main';
-// import Note from './Note/Note';
 import NotePage from './NotePage/NotePage'
 import NotefulContext from './NotefulContext';
 import AddFolder from './AddFolder/AddFolder';
@@ -18,101 +14,89 @@ import './App.css';
 
 
 class App extends Component {
-  // constructor (props) {
-  //   super(props);
     /*this.*/state = {
-      notes: [],
-      folders: [],
-      // error: null,
-    };
-  // }
+    notes: [],
+    folders: [],
+    // error: null,
+  };
+
   addFolder = folder => {
     this.setState({
-      folders: [ ...this.state.folders, folder ],
+      folders: [...this.state.folders, folder],
     })
   }
 
   addNote = note => {
     this.setState({
-      notes: [ ...this.state.notes, note ],
+      notes: [...this.state.notes, note],
     })
   }
 
-  handleDeleteNote = noteId => {
+  handleDeleteNote = (noteId) => {
     this.setState({
-    notes: this.state.notes.filter(note => note.id !== noteId)
-});
-};
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    });
+  };
 
   addErrorNotes = error => {
     this.setState(error);
   };
 
-	// setFolders = folders => {
-	// 	this.setState({
-	// 		folders,
-	// 		error: null
-	// 	});
+  // setFolders = folders => {
+  // 	this.setState({
+  // 		folders,
+  // 		error: null
+  // 	});
   // };
-  
-	setNotes = notes => {
-		this.setState({
-			notes,
-			error: null
+
+  setNotes = notes => {
+    this.setState({
+      notes,
+      error: null
     });
-    console.log(notes)
   };
-  
-	getFolders = () => {
-		fetch(config.API_FOLDERS, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		})
-			.then(res => {
-				if (!res.ok) {
-					throw new Error(res.status);
-				}
-				return res.json();
-			})
-			.then(this.setFolders)
-			// passes res to setFolders function
-			// shortcut which equals .then(res => this.setFolders(res))
-			.catch(error => this.setState({ foldersError: error }));
-	};
 
-  getNotes = () => {
-    // console.log(e)
+  getFolders = () => {
+    fetch(config.API_FOLDERS, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status);
+        }
+        return res.json();
+      })
+      .then(this.setFolders)
+      .catch(error => this.setState({ foldersError: error }));
+  };
 
-		fetch(config.API_NOTES + `/${2}`, {
-			method: 'GET',
-			headers: {
-				'content-type': 'application/json'
-			}
-		})
-			.then(res => {
-				if (!res.ok) {
-					throw new Error(res.status);
-				}
-				return res.json();
-			})
-			.then(this.setNotes)
-			// passes res to setNotes function
-			// shortcut which equals .then(res => this.setNotes(res))
-			.catch(error => this.setState({ notesError: error }));
-	};
+  // getNotes = () => {
+
+  //   fetch(config.API_NOTES + `/${2}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json'
+  //     }
+  //   })
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         throw new Error(res.status);
+  //       }
+  //       return res.json();
+  //     })
+  //     .then(this.setNotes)
+  //     // passes res to setNotes function
+  //     // shortcut which equals .then(res => this.setNotes(res))
+  //     .catch(error => this.setState({ notesError: error }));
+  // };
 
   // this.getFolders();
   // this.getNotes();
 
   componentDidMount() {
-
-    // let foldersAPICall = fetch(config.API_ENDPOINT  `/folders`);
-    // let notesAPICall = fetch(config.API_ENDPOINT  `/notes`);
-  
-    // Promise.all([foldersAPICall, notesAPICall])
-
     Promise.all([
       fetch(`${config.API_ENDPOINT}/notes`),
       fetch(`${config.API_ENDPOINT}/folders`)
@@ -120,97 +104,65 @@ class App extends Component {
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
           return notesRes.json().then(e => Promise.reject(e));
-        if  (!foldersRes.ok)
+        if (!foldersRes.ok)
           return foldersRes.json().then(e => Promise.reject(e));
-      
+
         return Promise.all([notesRes.json(), foldersRes.json()]);
       })
-        .then(([notes, folders]) => {
-          this.setState({notes, folders});
-          console.log(this.state)
-        })
-        .catch(error => {
-          console.error({error})
-        });
-      }
+      .then(([notes, folders]) => {
+        this.setState({ notes, folders });
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.error({ error })
+      });
+  }
 
-      // componentDidUpdate(prevState) {
-      //   if (this.state.folders !== prevState.folders) {
-      //     fetch(config.API_ENDPOINT + '/folders')
-      //       .then(response => response.json())
-      //       .then(responseJson =>
-      //         this.setState({
-      //           folders: responseJson
-      //         })
-      //       );
-      //   }
-    
-      //   if (this.state.notes !== prevState.notes) {
-      //     fetch(config.API_ENDPOINT + '/notes')
-      //       .then(response => response.json())
-      //       .then(responseJson =>
-      //         this.setState({
-      //           notes: responseJson
-      //         })
-      //       );
-      //   }
-      // }
-      
   renderMain() {
     // const {notes} = this.state;
     return (
-        <>
-            {['/', '/folder/:folderId'].map(path => (
-                <Route
-                    exact
-                    key={path}
-                    path={path}
-                    component={Main}
-                />
-            ))}
-            <Route
-                path="/note/:noteId"
-                // onClick = {this.getNotes}
-                component={NotePage}
-            />
-            <Route path="/add-note" component={AddNote} />
-        </>
+      <>
+        {['/', '/folder/:folderId'].map(path => (
+          <Route
+            exact
+            key={path}
+            path={path}
+            component={Main}
+          />
+        ))}
+        <Route
+          path="/note/:noteId"
+          // onClick = {this.getNotes}
+          component={NotePage}
+        />
+        <Route path="/add-note" component={AddNote} />
+      </>
     );
-}
+  }
 
   renderSidebar() {
-    // const {notes, folders} = this.state;
-
-
     return (
-        <>
-            {['/', '/folder/:folderId'].map(path => (
-                <Route
-                    exact
-                    key={path}
-                    path={path}
-                    component= {Sidebar}
-                />
-            ))}
-            <Route
-                    path="/note/:noteId"
-                    component = {SidebarNav}
-                    // render={routeProps => {
-                    //     const {noteId} = routeProps.match.params;
-                    //     const note = findNote(notes, noteId) || {};
-                    //     const folder = findFolder(folders, note.folderId);
-                    //     return <SidebarNav {...routeProps} folder={folder} />;
-                    // }}
-                />
-                <Route path="/add-folder" component={AddFolder} />
-            </>
+      <>
+        {['/', '/folder/:folderId'].map(path => (
+          <Route
+            exact
+            key={path}
+            path={path}
+            component={Sidebar}
+          />
+        ))}
+        <Route
+          path="/note/:noteId"
+          component={SidebarNav}
+        />
+        <Route path="/add-folder" component={AddFolder} />
+      </>
     )
   }
 
 
 
   render() {
-    // console.log(dummystore)
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
@@ -220,7 +172,7 @@ class App extends Component {
       addErrorNotes: this.addErrorNotes,
       notesError: this.notesError
     }
-console.log(contextValue)
+    console.log(contextValue)
     return (
       <NotefulContext.Provider value={contextValue}>
         <div className="App">
@@ -232,14 +184,13 @@ console.log(contextValue)
               {this.renderSidebar()}
             </div>
             <div className="main">
-
               {this.renderMain()}
             </div>
-            </main>
+          </main>
         </div>
       </ NotefulContext.Provider>
     );
   }
 }
-          
+
 export default App

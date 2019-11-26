@@ -13,7 +13,9 @@ export default class Main extends React.Component {
     static contextType = NotefulContext
 
     render() {
-        // console.log(this.context.notes)
+        // console.log(this.context.folders)
+        const folders = this.context.folders;
+        // console.log(folders)
         const { folderId } = this.props.match.params
         // console.log(folderId)
         const { notes } = this.context
@@ -29,7 +31,6 @@ export default class Main extends React.Component {
         return (
             <div className="mainpage__main">
                 <ul className="noteList">
-                    {/* <h1>Main</h1> */}
                     {notesForFolder.map(note =>
                         <li key={note.id}>
                             <Note
@@ -37,17 +38,6 @@ export default class Main extends React.Component {
                                 name={note.note_name}
                                 modified={note.date_published}
                             />
-                            {/* <Route path={`note/${note.id}`} component={Note}
-                                {...note.id}
-                                {...note.name}
-                                {...note.date_published}
-                                >
-                            </Route> */}
-                            {/* {note.name} */}
-                            {/* <Link to={`/note/${note.id}`}>
-                                {note.name}
-                            </Link>
-                            <p>{note.modified}</p> */}
                             
                         </li>
                         )}
@@ -58,8 +48,6 @@ export default class Main extends React.Component {
                         Add note
                 </Link>
             </div>
-// this.props.updateNoteList(note)}
-
         );
     }
 }
