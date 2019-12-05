@@ -24,7 +24,7 @@ export default class Note extends React.Component {
         const noteId = this.props.id
         console.log(noteId);
         // this.props.history.push(`/`)
-        console.log(this.props.handleDeleteNote);
+        console.log(this.context.deleteNote);
 
         fetch(`${config.API_NOTES}/${noteId}`, {
             method: 'DELETE',
@@ -40,11 +40,7 @@ export default class Note extends React.Component {
                 }
             })
             .then(() => {
-                // this.props.handleDeleteNote(noteId)
-                console.log(noteId)
                 this.context.deleteNote(noteId)
-                // this.props.history.push(`/notes`)
-                // this.handleDelete(noteId)
             })
             .catch(error => {
                 console.error({ error })
