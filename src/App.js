@@ -20,6 +20,28 @@ class App extends Component {
     // error: null,
   };
 
+  componentDidMount() {
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ])
+      .then(([notesRes, foldersRes]) => {
+        if (!notesRes.ok)
+          return notesRes.json().then(e => Promise.reject(e));
+        if (!foldersRes.ok)
+          return foldersRes.json().then(e => Promise.reject(e));
+
+        return Promise.all([notesRes.json(), foldersRes.json()]);
+      })
+      .then(([notes, folders]) => {
+        this.setState({ notes, folders });
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.error({ error })
+      });
+  }
+
   addFolder = folder => {
     this.setState({
       folders: [...this.state.folders, folder],
@@ -32,22 +54,23 @@ class App extends Component {
     })
   }
 
-  handleDeleteNote = (noteId) => {
+  handleDeleteNote = noteId => {
+    const newNotes = this.state.notes.filter(note => note.id !== noteId)
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== noteId)
-    });
-  };
+      notes: newNotes
+    })
+  }
 
   addErrorNotes = error => {
     this.setState(error);
   };
 
-  // setFolders = folders => {
-  // 	this.setState({
-  // 		folders,
-  // 		error: null
-  // 	});
-  // };
+  setFolders = folders => {
+  	this.setState({
+  		folders,
+  		error: null
+  	});
+  };
 
   setNotes = notes => {
     this.setState({
@@ -96,27 +119,6 @@ class App extends Component {
   // this.getFolders();
   // this.getNotes();
 
-  componentDidMount() {
-    Promise.all([
-      fetch(`${config.API_ENDPOINT}/notes`),
-      fetch(`${config.API_ENDPOINT}/folders`)
-    ])
-      .then(([notesRes, foldersRes]) => {
-        if (!notesRes.ok)
-          return notesRes.json().then(e => Promise.reject(e));
-        if (!foldersRes.ok)
-          return foldersRes.json().then(e => Promise.reject(e));
-
-        return Promise.all([notesRes.json(), foldersRes.json()]);
-      })
-      .then(([notes, folders]) => {
-        this.setState({ notes, folders });
-        console.log(this.state)
-      })
-      .catch(error => {
-        console.error({ error })
-      });
-  }
 
   renderMain() {
     // const {notes} = this.state;
@@ -132,8 +134,10 @@ class App extends Component {
         ))}
         <Route
           path="/note/:noteId"
+          render={routeProps => <NotePage {...routeProps} />}
+          onDelete={this.handleDelete}
           // onClick = {this.getNotes}
-          component={NotePage}
+          // component={NotePage}
         />
         <Route path="/add-note" component={AddNote} />
       </>

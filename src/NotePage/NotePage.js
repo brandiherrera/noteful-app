@@ -3,23 +3,82 @@ import React from 'react'
 // import { NavLink } from 'react-router-dom'
 import Note from '../Note/Note'
 import NotefulContext from '../NotefulContext';
+import config from '../config'
 // import { findNote } from '../notesFunctions';
 
+
 export default class NotePage extends React.Component {
-  static defaultProps = {
-    match: {
-      params: {}
-    }
-  }
+  // static defaultProps = {
+  //   match: {
+  //     params: {}
+  //   }
+  // }
   static contextType = NotefulContext;
 
-  handleDeleteNote = () => {
+  // handleDeleteNote = () => {
+  //   this.props.history.push(`/`)
+  // }
+
+  handleDeleteNote = (event) => {
+    // event.preventDefault()
+    const noteNum = this.props.match.params
     this.props.history.push(`/`)
-  }
+    const noteId = Object.values(noteNum).toString()
+    console.log(noteId)
+
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        },
+    })
+        .then(res => {
+            if (!res.ok)
+                return res.json().then(event => Promise.reject(event))
+            return res.json()
+        })
+        .then(() => {
+        //   refreshPage() { 
+        //     window.location.reload(); 
+        // }
+            // this.context.deleteNote(noteId)
+            this.props.onDeleteNote(noteId)
+        })
+        .catch(error => {
+            console.error({ error })
+        })
+}
+
+// handleDeleteNote = (noteId, cb) => {
+//   const noteNum = this.props.match.params
+//   this.props.history.push(`/`)
+//   const numId = Object.values(noteNum).toString()
+//   console.log(numId)
+
+//   fetch(config.API_NOTES + `/${numId}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'content-type': 'application/json',
+//     }
+//   })
+//   .then(res => {
+//     if (!res.ok) {
+//       return res.json().then(error => Promise.reject(error))
+//     }
+//     return res.json()
+//   })
+//   .then(data => {
+//     cb(numId)
+//   })
+//   .catch(error => {
+//     console.error(error)
+//   })
+// }
 
   render() {
     const { notes = [] } = this.context
     const { noteId } = this.props.match.params
+    console.log(this.props.history)
     // const note = findNote(notes, noteId) || { content: '' }
 
     const getNotes = notes
@@ -34,20 +93,24 @@ export default class NotePage extends React.Component {
               .map((text, i) =>
                 <p key={i}>{text}</p>
               )}
+              NOTEPAGE.JS
           </section>
         )
       }
       )
 
+      // console.log(props.id)
+
     return (
       <div>
         {getNotes}
-        <Note />
-        {/* <button
+        {/* <Note notes={notes} noteId={noteId} history={this.props.history} onDelete={this.handleDeleteNote}/> */}
+        <button
           type="button"
-          onClick={this.handleDeleteNote}>
+          // onClick={this.handleDeleteNote}>
+          onClick={() => this.handleDeleteNote(this.props.id, this.context.deleteNote)}>
           Delete Note
-                            </button> */}
+                            </button>
       </div>
     )
 

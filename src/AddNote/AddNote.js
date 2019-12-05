@@ -35,16 +35,17 @@ export default class AddNote extends Component {
         console.log(errors)
 		this.setState({ errorCount: count });
 		let valid = count === 0 ? true : false;
-		this.setState({ formValid: valid });
+        this.setState({ formValid: valid });
+        // this.context.addNote(this.state)
 	};
 
     // updateName(name) {
     //     this.setState({ name: { value: name, touched: true } });
     // }
 
-    // updateFolderId(folderId) {
-    //     this.setState({ folderId: { value: folderId, touched: true } });
-    // }
+    updateFolderId(folderId) {
+        this.setState({ folderId: { value: folderId, touched: true } });
+    }
 
     // updateContent(content) {
     //     this.setState({ content: { value: content, touched: true } });
@@ -103,6 +104,7 @@ export default class AddNote extends Component {
             content: content.value,
             modified: new Date()
         };
+        console.log(note)
         this.setState({ appError: null });
 
         fetch(config.API_NOTES, {
@@ -124,10 +126,10 @@ export default class AddNote extends Component {
                 name.value = '';
                 content.value = '';
                 folderId.value = '';
-                console.log(this.props)
+                // console.log(this.props)
                 this.context.addNote(data);
-                // this.props.history.pushState('/', this.props);
-                this.props.history.push('/');
+                this.setState({data});
+                this.props.history.push('/', data);
             })
             .catch(error => {
                 this.setState({ appError: error });

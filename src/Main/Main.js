@@ -15,11 +15,21 @@ export default class Main extends React.Component {
     render() {
         // console.log(this.context.folders)
         const folders = this.context.folders;
-        // console.log(folders)
+        console.log(folders)
+        console.log({folders})
+
+        const myFolder = folders.filter(folder => (
+            folder.id
+            // ,
+            // console.log(folder.id)
+        ))
+            
+        
+        // console.log(obj())
         const { folderId } = this.props.match.params
         // console.log(folderId)
         const { notes } = this.context
-        // console.log(notes)
+        console.log(notes)
         const getNotesForFolder = (notes=[], folderId) => (
             (!folderId)
               ? notes

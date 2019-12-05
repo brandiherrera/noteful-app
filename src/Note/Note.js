@@ -16,41 +16,56 @@ export default class Note extends React.Component {
     }
 
     static contextType = NotefulContext;
+
     
     handleDeleteNote = (event) => {
-        event.preventDefault()
+        // event.preventDefault()
         const noteId = this.props.id
+        // console.log(this.props.id)
         // this.props.history.push(`/`)
-        console.log(this.history)
+        console.log(this.onDelete)
 
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        fetch(`${config.API_NOTES}/${noteId}`, {
             method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
+            // headers: {
+            //     'content-type': 'application/json'
+            // },
         })
             .then(res => {
-                if (!res.ok)
-                    return res.json().then(event => Promise.reject(event))
+                if (!res.ok) {
+                    throw new Error(res.statusText)
+                    // return res.json().then(event => Promise.reject(event))
+                }
                 return res.json()
             })
             .then(() => {
-                this.context.deleteNote(noteId)
-                // this.props.onDeleteNote(noteId)
+                this.props.onDeleteNote(noteId)
+                
+                // this.context.deleteNote(noteId)
+                // this.props.history.push(`/notes`)
+                // this.handleDelete(noteId)
             })
             .catch(error => {
                 console.error({ error })
             })
     }
 
-    handleDelete = () => {
-        this.props.history.push(`/`)
-    }
+    // handleDelete = () => {
+    //     this.props.history.push(`/`)
+    // }
+    
 
     render() {
+        // const history = this.props.history
         // const { notes } = this.props
+
+        // console.log(this.props.history)
+
+        // const noteId = this.props.id;
         // const { notes = [] } = this.context
-        // console.log(this.props)
+
+        // console.log(notes)
+
         // const findNote = (notes = [], noteId) =>
         //     notes.find(note => note.id === noteId)
         // console.log(this.context)
@@ -72,10 +87,12 @@ export default class Note extends React.Component {
                         <button
                             type="button"
                             // onDeleteNote={this.handleDeleteNote}
+                            // onClick={() => this.handleDeleteNote(this.props.id)}>
                             onClick={this.handleDeleteNote}>
                             Delete Note
                             </button>
                         <p>{this.props.content}</p>
+                        <p>NOTE.JS</p>
                     </div>
                     </div>
                 )}
@@ -84,7 +101,8 @@ export default class Note extends React.Component {
 Note.defaultProps = {
     notes: [],
     content: "",
-    name: ""
+    name: "",
+    // onClickDelete: () => {},
 }
 
 // Note.propTypes = {

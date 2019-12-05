@@ -30,9 +30,9 @@ export default class SidebarNav extends React.Component {
                 // ? "hello"
                 : folders.filter(folder => folder.id)
         )
-        // console.log(noteId)
+        console.log(noteId)
         const nameYet = getFolderName(noteId, folders)
-        // console.log(nameYet);
+        console.log(nameYet);
 
         return (
             <div className="SidebarNav">
