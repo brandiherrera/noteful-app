@@ -38,12 +38,11 @@ export default class Note extends React.Component {
                     throw new Error(res.statusText)
                     // return res.json().then(event => Promise.reject(event))
                 }
-                return res.json()
             })
             .then(() => {
-                this.props.handleDeleteNote(noteId)
+                // this.props.handleDeleteNote(noteId)
                 console.log(noteId)
-                // this.context.deleteNote(noteId)
+                this.context.deleteNote(noteId)
                 // this.props.history.push(`/notes`)
                 // this.handleDelete(noteId)
             })

@@ -55,7 +55,11 @@ class App extends Component {
   }
 
   handleDeleteNote = noteId => {
-    const newNotes = this.state.notes.filter(note => note.id !== noteId)
+    const newNotes = this.state.notes.filter(note => {
+      console.log(typeof note.id, typeof noteId)
+      return note.id !== noteId;
+    });
+
     console.log(noteId);
     this.setState({
       notes: newNotes
