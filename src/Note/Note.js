@@ -9,6 +9,7 @@ import config from '../config';
 
 export default class Note extends React.Component {
     static defaultProps = {
+        handleDeleteNote: () => {},
         onDeleteNote: () => { },
         match: {
             params: {}
@@ -21,9 +22,9 @@ export default class Note extends React.Component {
     handleDeleteNote = (event) => {
         // event.preventDefault()
         const noteId = this.props.id
-        // console.log(this.props.id)
+        console.log(noteId);
         // this.props.history.push(`/`)
-        console.log(this.onDelete)
+        console.log(this.props.handleDeleteNote);
 
         fetch(`${config.API_NOTES}/${noteId}`, {
             method: 'DELETE',
@@ -31,6 +32,7 @@ export default class Note extends React.Component {
             //     'content-type': 'application/json'
             // },
         })
+        // console.log(noteId)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(res.statusText)
@@ -39,8 +41,8 @@ export default class Note extends React.Component {
                 return res.json()
             })
             .then(() => {
-                this.props.onDeleteNote(noteId)
-                
+                this.props.handleDeleteNote(noteId)
+                console.log(noteId)
                 // this.context.deleteNote(noteId)
                 // this.props.history.push(`/notes`)
                 // this.handleDelete(noteId)

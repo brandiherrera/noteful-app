@@ -13,7 +13,7 @@ export default class Main extends React.Component {
     static contextType = NotefulContext
 
     render() {
-        // console.log(this.context.folders)
+        console.log(this.context.notes)
         const folders = this.context.folders;
         console.log(folders)
         console.log({folders})
@@ -27,7 +27,7 @@ export default class Main extends React.Component {
         
         // console.log(obj())
         const { folderId } = this.props.match.params
-        // console.log(folderId)
+        // console.log(this.state.notes)
         const { notes } = this.context
         console.log(notes)
         const getNotesForFolder = (notes=[], folderId) => (

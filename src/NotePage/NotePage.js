@@ -24,7 +24,12 @@ export default class NotePage extends React.Component {
     const noteNum = this.props.match.params
     this.props.history.push(`/`)
     const noteId = Object.values(noteNum).toString()
-    console.log(noteId)
+    console.log(this.context.deleteNote);
+    // console.log(noteId);
+    // console.log(this.props.onDelete);
+    // console.log(this.props.onDeleteNote);
+    // console.log(this.context.deleteNote);
+    // console.log(this.props.handleDeleteNote);
 
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
         method: 'DELETE',
@@ -41,8 +46,8 @@ export default class NotePage extends React.Component {
         //   refreshPage() { 
         //     window.location.reload(); 
         // }
-            // this.context.deleteNote(noteId)
-            this.props.onDeleteNote(noteId)
+            this.context.deleteNote()
+            // this.props.onDelete(noteId)
         })
         .catch(error => {
             console.error({ error })

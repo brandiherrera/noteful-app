@@ -56,6 +56,7 @@ class App extends Component {
 
   handleDeleteNote = noteId => {
     const newNotes = this.state.notes.filter(note => note.id !== noteId)
+    console.log(noteId);
     this.setState({
       notes: newNotes
     })
@@ -134,8 +135,7 @@ class App extends Component {
         ))}
         <Route
           path="/note/:noteId"
-          render={routeProps => <NotePage {...routeProps} />}
-          onDelete={this.handleDelete}
+          render={routeProps => <NotePage {...routeProps} onDelete={this.handleDeleteNote} />}
           // onClick = {this.getNotes}
           // component={NotePage}
         />
