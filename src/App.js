@@ -52,6 +52,7 @@ class App extends Component {
     this.setState({
       notes: [...this.state.notes, note],
     })
+    console.log('addNote running')
   }
 
   handleDeleteNote = noteId => {
