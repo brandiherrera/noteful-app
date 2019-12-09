@@ -13,7 +13,7 @@ export default class Main extends React.Component {
     static contextType = NotefulContext
 
     render() {
-        console.log(this.context.notes)
+        console.log(this.context.notes);
         const folders = this.context.folders;
         console.log(folders)
         console.log({folders})
