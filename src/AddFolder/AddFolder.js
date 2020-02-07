@@ -1,21 +1,12 @@
 import React from 'react';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
-import ValidationError from '../ValidationError'
+import ValidationError from '../ValidationError';
 import PropTypes from 'prop-types';
 
 export default class AddFolder extends React.Component {
     static contextType = NotefulContext;
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         add_folder: {
-    //             value: '',
-    //             touched: false
-    //     }
-    //     };
-    // }
     state = {
         appError: null,
         formValid: false,
@@ -35,7 +26,6 @@ export default class AddFolder extends React.Component {
 				count++;
 			}
 		});
-        console.log(errors)
 		this.setState({ errorCount: count });
         let valid = count === 0 ? true : false;
 		this.setState({ formValid: valid });
@@ -45,7 +35,6 @@ export default class AddFolder extends React.Component {
         let err = '';
 
         if (name === 'name') {
-            console.log(value.trim())
             if (value.trim().length === 0) {
                 return 'Folder name is required.'
             } else if (name.length < 3) {
@@ -89,9 +78,7 @@ export default class AddFolder extends React.Component {
             })
             .then(data => {
                 name.value = '';
-                console.log(this.props)
                 this.context.addFolder(data);
-                // this.props.history.pushState('/', this.props);
                 this.props.history.push('/');
             })
             .catch(error => {
@@ -102,7 +89,6 @@ export default class AddFolder extends React.Component {
 
     render() {
         const { errors } = this.state;
-        // const folders = this.context.folders;
 
         return (
             <form className="addFolderForm" onSubmit={e => this.handleSubmit(e)}>
@@ -111,15 +97,12 @@ export default class AddFolder extends React.Component {
                     <label htmlFor="name">Folder Name</label>
                     <input
                         type="text"
-                        // className="add-folder__input"
                         name="name"
                         id="name"
-                        // onChange={e => this.handleChange(e.target.value)}
                         onChange={this.handleChange}
-                        // required
                     />
                     {errors.name.length > 0 && (
-						<ValidationError /*id={'folderFolderError'}*/ message={errors.name} />)}
+						<ValidationError message={errors.name} />)}
                     <button
                         type="submit"
                         disabled={this.state.formValid === false}
@@ -150,5 +133,4 @@ AddFolder.propTypes = {
     id: PropTypes.string,
     content: PropTypes.string,
     modified: PropTypes.string,
-    // error: PropTypes.error
 }

@@ -14,10 +14,9 @@ import './App.css';
 
 
 class App extends Component {
-    /*this.*/state = {
+  state = {
     notes: [],
     folders: [],
-    // error: null,
   };
 
   componentDidMount() {
@@ -35,7 +34,6 @@ class App extends Component {
       })
       .then(([notes, folders]) => {
         this.setState({ notes, folders });
-        console.log(this.state)
       })
       .catch(error => {
         console.error({ error })
@@ -52,16 +50,13 @@ class App extends Component {
     this.setState({
       notes: [...this.state.notes, note],
     })
-    console.log('addNote running')
   }
 
   handleDeleteNote = noteId => {
     const newNotes = this.state.notes.filter(note => {
-      console.log(typeof note.id, typeof noteId)
       return note.id !== noteId;
     });
 
-    console.log(noteId);
     this.setState({
       notes: newNotes
     })
@@ -72,10 +67,10 @@ class App extends Component {
   };
 
   setFolders = folders => {
-  	this.setState({
-  		folders,
-  		error: null
-  	});
+    this.setState({
+      folders,
+      error: null
+    });
   };
 
   setNotes = notes => {
@@ -102,32 +97,7 @@ class App extends Component {
       .catch(error => this.setState({ foldersError: error }));
   };
 
-  // getNotes = () => {
-
-  //   fetch(config.API_NOTES + `/${2}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'content-type': 'application/json'
-  //     }
-  //   })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw new Error(res.status);
-  //       }
-  //       return res.json();
-  //     })
-  //     .then(this.setNotes)
-  //     // passes res to setNotes function
-  //     // shortcut which equals .then(res => this.setNotes(res))
-  //     .catch(error => this.setState({ notesError: error }));
-  // };
-
-  // this.getFolders();
-  // this.getNotes();
-
-
   renderMain() {
-    // const {notes} = this.state;
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -141,8 +111,6 @@ class App extends Component {
         <Route
           path="/note/:noteId"
           render={routeProps => <NotePage {...routeProps} onDelete={this.handleDeleteNote} />}
-          // onClick = {this.getNotes}
-          // component={NotePage}
         />
         <Route path="/add-note" component={AddNote} />
       </>
@@ -181,7 +149,7 @@ class App extends Component {
       addErrorNotes: this.addErrorNotes,
       notesError: this.notesError
     }
-    console.log(contextValue)
+
     return (
       <NotefulContext.Provider value={contextValue}>
         <div className="App">

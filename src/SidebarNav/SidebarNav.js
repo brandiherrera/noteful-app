@@ -16,7 +16,7 @@ export default class SidebarNav extends React.Component {
 
     render() {
         const { notes = [], folders = [] } = this.context
-    
+
         const { noteId } = this.props.match.params;
 
         const noteFolderId = notes.filter(note => note.id == noteId)
@@ -24,19 +24,15 @@ export default class SidebarNav extends React.Component {
         const idForFolder = folders.filter(folder => folder.id == 2)
 
         const getFolderName = (noteId, folders = []) => (
-                (noteFolderId.folder_id === idForFolder.id)
-                // (2 === 2)
+            (noteFolderId.folder_id === idForFolder.id)
                 ? idForFolder.map(folder => folder.folder_name)
-                // ? "hello"
                 : folders.filter(folder => folder.id)
         )
-        console.log(noteId)
         const nameYet = getFolderName(noteId, folders)
-        console.log(nameYet);
 
         return (
             <div className="SidebarNav">
-                {nameYet}
+                {/* {nameYet} */}
                 <button
                     type="button"
                     onClick={() => this.props.history.goBack()}>
@@ -58,8 +54,3 @@ SidebarNav.propTypes = {
     name: PropTypes.string,
     noteId: PropTypes.number
 }
-// SidebarNav.defaultProps = {
-//     history: {
-//         goBack: () => {}
-//     }
-// }
