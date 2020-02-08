@@ -54,10 +54,11 @@ export default class NotePage extends React.Component {
       )
 
     return (
-      <div>
+      <div className="whole-notes-display">
         {getNotes}
         <button
           type="button"
+          id='delete-note-link-little'
           onClick={() => this.handleDeleteNote(this.props.id, this.context.deleteNote)}>
           Delete Note
         </button>

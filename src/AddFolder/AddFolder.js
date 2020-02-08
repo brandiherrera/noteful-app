@@ -92,9 +92,8 @@ export default class AddFolder extends React.Component {
 
         return (
             <form className="addFolderForm" onSubmit={e => this.handleSubmit(e)}>
-                <fieldset>
-                    <legend>Add Folder</legend>
-                    <label htmlFor="name">Folder Name</label>
+                    <legend><h3>Add Folder</h3></legend>
+                    <label htmlFor="name"><h4>Folder Name</h4></label>
                     <input
                         type="text"
                         name="name"
@@ -102,14 +101,14 @@ export default class AddFolder extends React.Component {
                         onChange={this.handleChange}
                     />
                     {errors.name.length > 0 && (
-						<ValidationError message={errors.name} />)}
+                        <ValidationError message={errors.name} />)}
                     <button
                         type="submit"
+                        id="submit-btn"
                         disabled={this.state.formValid === false}
                     >
                         Submit
                     </button>
-                </fieldset>
                 {this.state.errorCount !== null ? (
 					<p className="form-status">
 						Form is {this.state.formValid ? 'complete' : 'incomplete'}

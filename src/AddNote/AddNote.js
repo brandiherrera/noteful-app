@@ -114,46 +114,47 @@ export default class AddNote extends Component {
 
         return (
             <form className="add-note" onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Add Note</legend>
-                    <label htmlFor="name">Note Name</label>
-                    <input
-                        type="text"
-                        className="add-note__name"
-                        name="name"
-                        id="name"
-                        defaultValue=""
-                        onChange={this.handleChange}
-                    />
+                <legend>
+                    <h3>Add Note</h3>
+                </legend>
+                <label htmlFor="name"><h4>Note Name</h4></label>
+                <input
+                    type="text"
+                    className="add-note__name"
+                    name="name"
+                    id="name"
+                    defaultValue=""
+                    onChange={this.handleChange}
+                />
 
-                    {errors.name.length > 0 && (
-                        <ValidationError message={errors.name} />)}
-                    <label htmlFor="content">Note Content</label>
-                    <input
-                        type="text"
-                        className="add-note__content"
-                        name="content"
-                        id="content"
-                        defaultValue=""
-                        onChange={this.handleChange}
-                    />
-                    <select
-                        id="folderId"
-                        name="folderId"
-                        value={this.state.folderId}
-                        onChange={this.handleChange}
-                    >
-                        <option value="">Select a folder</option>
-                        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.folder_name}</option>))}
-                    </select>
-                    <button
-                        type="submit"
-                        disabled={
-                            this.state.formValid === false
-                        }
-                    >Submit
+                {errors.name.length > 0 && (
+                    <ValidationError message={errors.name} />)}
+                <label htmlFor="content"><h4>Note Content</h4></label>
+                <input
+                    type="text"
+                    className="add-note__content"
+                    name="content"
+                    id="content"
+                    defaultValue=""
+                    onChange={this.handleChange}
+                />
+                <select
+                    id="folderId"
+                    name="folderId"
+                    value={this.state.folderId}
+                    onChange={this.handleChange}
+                >
+                    <option value="">Select a folder</option>
+                    {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.folder_name}</option>))}
+                </select>
+                <button
+                    type="submit"
+                    id="submit-btn"
+                    disabled={
+                        this.state.formValid === false
+                    }
+                >Submit
                     </button>
-                </fieldset>
 
                 {this.state.errorCount !== null ? (
                     <p className="form-status">

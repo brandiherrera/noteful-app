@@ -100,6 +100,7 @@ class App extends Component {
   renderMain() {
     return (
       <>
+      <h2>Notes</h2>
         {['/', '/folder/:folderId'].map(path => (
           <Route
             exact
@@ -120,6 +121,7 @@ class App extends Component {
   renderSidebar() {
     return (
       <>
+      <h2>Folders</h2>
         {['/', '/folder/:folderId'].map(path => (
           <Route
             exact

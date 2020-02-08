@@ -33,11 +33,14 @@ export default class SidebarNav extends React.Component {
         return (
             <div className="SidebarNav">
                 {/* {nameYet} */}
+                <li id="go-back">
                 <button
                     type="button"
+                    id="go-back-link"
                     onClick={() => this.props.history.goBack()}>
                     Go back
                 </button>
+                </li>
             </div>
         )
     }

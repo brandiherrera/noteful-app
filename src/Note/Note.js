@@ -40,23 +40,32 @@ export default class Note extends React.Component {
         return (
             <div className="note">
                 <div key={this.props.id}>
-                    <h2>
+                    {/* <h3> */}
                         <Link to={`/note/${this.props.id}`}>
-                            {this.props.name}
+                            <h3>{this.props.name}</h3>
+                        <p>Modified on {(this.props.modified).slice(0, 10)}</p>
+                        {/* <button
+                            type="button"
+                            id="delete-note-link-little"
+                            onClick={this.handleDeleteNote}>
+                            Delete Note
+                            </button> */}
+                        <p>{this.props.content}</p>
                         </Link>
-                    </h2>
-                    <p>
-                        {/* {this.props.modified} */}
-                        Modified on {(this.props.modified).slice(0, 10)}
-                    </p>
-                    <button
-                        type="button"
-                        onClick={this.handleDeleteNote}>
-                        Delete Note
+                    {/* </h3> */}
+                {/* <p>
+                    {this.props.modified}
+                    Modified on {(this.props.modified).slice(0, 10)}
+                </p> */}
+                <button
+                    type="button"
+                    id="delete-note-link-little"
+                    onClick={this.handleDeleteNote}>
+                    Delete Note
                             </button>
-                    <p>{this.props.content}</p>
-                </div>
+                {/* <p>{this.props.content}</p> */}
             </div>
+            </div >
         )
     }
 }

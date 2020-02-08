@@ -8,6 +8,7 @@ export default class Sidebar extends React.Component {
     static contextType = NotefulContext;
 
     render() {
+
         const { folders = [] } = this.context
         const folderId = folders.map(folder => folder.id)
         const findFolder = (folders = [], folderId) =>
@@ -20,14 +21,16 @@ export default class Sidebar extends React.Component {
                 <div className="folderList">
                     {folders.map(folder =>
                         <li key={folder.id} >
-                            <NavLink to={`/folder/${folder.id}`} className={folder.id == folderId ? ' active' : null} >
-                                {folder.folder_name}
+                                <NavLink to={`/folder/${folder.id}`} className={folder.id == folderId ? ' active' : 'not-active'} >
+                                <h3>{folder.folder_name}</h3>
                             </NavLink>
                             {folderDisplay}
                         </li>)}
                 </div>
-                <Link to='/add-folder'>
-                    Add Folder
+                <Link 
+                    id='add-folder-link' 
+                    to='/add-folder'>
+                        Add Folder
                     </Link>
             </nav>
         )

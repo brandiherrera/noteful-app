@@ -31,11 +31,11 @@ export default class Main extends React.Component {
                                 name={note.note_name}
                                 modified={note.date_published}
                             />
-
                         </li>
                     )}
                 </ul>
                 <Link
+                    id='add-note-link'
                     to='/add-note'
                 >
                     Add note
