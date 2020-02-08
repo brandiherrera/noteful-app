@@ -86,7 +86,7 @@ a:hover {
 }
 
 .active {
-  color: #DADAD9;
+  color: red;
 }
 
 #add-folder-link,
